@@ -1,23 +1,38 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Simple AR.js App</title>
+    <title>AR Video with AR.js</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://cdn.rawgit.com/jeromeetienne/ar.js/2.1.8/aframe/build/aframe-ar.min.js"></script>
     <style>
         body { margin: 0; overflow: hidden; }
-        #loading { position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #000; color: white; display: flex; align-items: center;
-            justify-content: center; z-index: 10; font-family: sans-serif; }
+        #loading {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000; color: white; display: flex;
+            align-items: center; justify-content: center;
+            z-index: 10; font-family: sans-serif;
+        }
     </style>
 </head>
 <body>
 <div id="loading">🔍 در حال بارگذاری AR...</div>
 
 <a-scene embedded arjs='sourceType: webcam; debugUIEnabled: false;'>
+    <a-assets>
+        <video id="ar-video" autoplay loop muted playsinline
+               src="https://cdn.glitch.global/20cf6aaf-b765-4b36-98ae-0e7fa2dcb93d/sample.mp4?v=1712164205160">
+        </video>
+    </a-assets>
+
     <a-marker preset="hiro">
-        <a-box position="0 0.5 0" material="color: red;"></a-box>
+        <a-video
+                src="#ar-video"
+                width="1.5"
+                height="0.9"
+                position="0 0.5 0">
+        </a-video>
     </a-marker>
+
     <a-entity camera></a-entity>
 </a-scene>
 

@@ -33,7 +33,7 @@
         </video>
     </a-assets>
 
-    <a-marker type="pattern" url="pattern-target.patt">
+    <a-marker id="myMarker" type="pattern" url="pattern-target.patt">
         <a-video
                 src="#ar-video"
                 width="1"
@@ -56,6 +56,21 @@
         }).catch(err => {
             alert("خطا در پخش ویدیو: " + err);
         });
+    });
+
+</script>
+<script>
+    const marker = document.querySelector("#myMarker");
+    const statusBox = document.getElementById("status");
+
+    marker.addEventListener("markerFound", () => {
+        statusBox.innerText = "مارکر شناسایی شد ✅";
+        statusBox.style.display = "block";
+    });
+
+    marker.addEventListener("markerLost", () => {
+        statusBox.innerText = "مارکر شناسایی نشد ❌";
+        setTimeout(() => statusBox.style.display = "none", 1000);
     });
 </script>
 

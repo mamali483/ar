@@ -9,7 +9,14 @@
     <style> body { margin:0; overflow:hidden; } canvas { position:absolute; top:0; left:0; } </style>
 </head>
 <body>
-<a-scene mindar-image="imageTargetSrc: targets.mind;" embedded>
+<a-scene mindar-image="imageTargetSrc: target.mind;"
+         device-orientation-permission-ui="enabled: true"
+         embedded
+         color-space="sRGB"
+         renderer="colorManagement: true, physicallyCorrectLights"
+         vr-mode-ui="enabled: false"
+         arjs="debugUIEnabled: false"
+>
     <a-assets>
         <video id="myvideo" src="video.mp4" preload="auto" loop crossorigin="anonymous"></video>
     </a-assets>

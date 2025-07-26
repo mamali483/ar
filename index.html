@@ -7,19 +7,10 @@
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
     <style>
         html, body {
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            width: 100%;
-            height: 100%;
+            margin: 0; padding: 0; overflow: hidden; width: 100%; height: 100%;
         }
         a-scene {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100vw;
-            height: 100vh;
-            margin: 0; padding: 0;
-            overflow: hidden;
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; margin: 0; padding: 0; overflow: hidden;
         }
     </style>
 </head>
@@ -37,11 +28,11 @@
                 id="myvideo"
                 src="https://cdn.jsdelivr.net/gh/mamali483/ar/video.mp4"
                 loop
+                muted
                 crossorigin="anonymous"
                 playsinline
                 webkit-playsinline
                 preload="auto"
-                muted
         ></video>
     </a-assets>
 
@@ -60,5 +51,16 @@
         ></a-video>
     </a-entity>
 </a-scene>
+
+<script>
+    document.querySelector('a-scene').addEventListener('mindar-initialized', () => {
+        const video = document.querySelector('#myvideo');
+        if (video) {
+            video.play().catch(e => {
+                console.log('Video play prevented:', e);
+            });
+        }
+    });
+</script>
 </body>
 </html>

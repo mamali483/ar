@@ -67,7 +67,16 @@
     startBtn.addEventListener('click', async () => {
         try {
             await video.play();
-            scene.components['mindar-image'].start();
+
+            // گرفتن اینترفیس mindar از A-Frame scene
+            const mindarComponent = scene.components['mindar-image'];
+
+            if (mindarComponent) {
+                await mindarComponent.start();  // استارت کردن AR
+            } else {
+                console.error('MindAR component not found!');
+            }
+
             startBtn.style.display = 'none';
         } catch (e) {
             console.error('Error starting video or AR:', e);

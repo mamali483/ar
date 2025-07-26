@@ -3,12 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <title>MindAR Video Example</title>
-
-    <!-- A-Frame و MindAR -->
     <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
-
-    <!-- استایل برای تمام صفحه بودن -->
     <style>
         html, body {
             margin: 0;
@@ -17,7 +13,6 @@
             width: 100%;
             height: 100%;
         }
-
         a-scene {
             position: fixed;
             top: 0;
@@ -25,7 +20,6 @@
             width: 100vw;
             height: 100vh;
         }
-
         #startBtn {
             position: fixed;
             top: 10px;
@@ -41,14 +35,11 @@
         }
     </style>
 </head>
-
 <body>
-<!-- دکمه برای شروع -->
-<button id="startBtn">Start AR & Video 1.2</button>
+<button id="startBtn">Start AR & Video 1.3</button>
 
-<!-- صحنه AR -->
 <a-scene
-        mindar-image="imageTargetSrc: https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/image-tracking/assets/card-example/card.mind; autoStart: false"
+        mindar-image="imageTargetSrc: https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/image-tracking/assets/card-example/card.mind; autoStart: true"
         color-space="sRGB"
         renderer="colorManagement: true, physicallyCorrectLights"
         vr-mode-ui="enabled: false"
@@ -56,7 +47,6 @@
         embedded
 >
     <a-assets>
-        <!-- ویدیو -->
         <video
                 id="myvideo"
                 src="https://cdn.jsdelivr.net/gh/mamali483/ar/video.mp4"
@@ -69,10 +59,8 @@
         ></video>
     </a-assets>
 
-    <!-- دوربین -->
     <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
-    <!-- هدف مارکر -->
     <a-entity mindar-image-target="targetIndex: 0">
         <a-video
                 src="#myvideo"
@@ -84,33 +72,5 @@
     </a-entity>
 </a-scene>
 
-<!-- اسکریپت شروع AR -->
 <script>
-    const startBtn = document.getElementById('startBtn');
-    const video = document.getElementById('myvideo');
-    const scene = document.querySelector('a-scene');
-
-    async function startAR() {
-        try {
-            await video.play();
-            const mindarComponent = scene.components['mindar-image'];
-            if (mindarComponent) {
-                await mindarComponent.start();
-                startBtn.style.display = 'none';
-            } else {
-                console.error('MindAR component not found!');
-            }
-        } catch (e) {
-            console.error('Error starting video or AR:', e);
-        }
-    }
-
-    startBtn.addEventListener('click', () => {
-        if (scene.hasLoaded) {
-            startAR();
-        } else {
-            scene.addEventListener('loaded', startAR);
-        }
-    });
-</script>
-</body>
+    const startBtn = document.getElementById('sta

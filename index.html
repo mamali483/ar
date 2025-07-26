@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>MindAR Video on Marker</title>
+    <title>MindAR Video with User Start</title>
     <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
     <style>
@@ -12,11 +12,20 @@
         a-scene {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; margin: 0; padding: 0; overflow: hidden;
         }
+        #startBtn {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 9999;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
     </style>
 </head>
 <body>
+<button id="startBtn">Start AR & Video</button>
 <a-scene
-        mindar-image="imageTargetSrc: https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/image-tracking/assets/card-example/card.mind; autoStart: true"
+        mindar-image="imageTargetSrc: https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/image-tracking/assets/card-example/card.mind; autoStart: false"
         color-space="sRGB"
         renderer="colorManagement: true, physicallyCorrectLights"
         vr-mode-ui="enabled: false"
@@ -45,20 +54,23 @@
                 height="0.5625"
                 position="0 0 0"
                 rotation="0 0 0"
-                autoplay="true"
-                loop="true"
                 muted="true"
         ></a-video>
     </a-entity>
 </a-scene>
 
 <script>
-    document.querySelector('a-scene').addEventListener('mindar-initialized', () => {
-        const video = document.querySelector('#myvideo');
-        if (video) {
-            video.play().catch(e => {
-                console.log('Video play prevented:', e);
-            });
+    const startBtn = document.getElementById('startBtn');
+    const video = document.getElementById('myvideo');
+    const scene = document.querySelector('a-scene');
+
+    startBtn.addEventListener('click', async () => {
+        try {
+            await video.play();
+            scene.components['mindar-image'].start();
+            startBtn.style.display = 'none';
+        } catch (e) {
+            console.error('Error starting video or AR:', e);
         }
     });
 </script>
